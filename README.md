@@ -1,7 +1,3 @@
-# app
-
-The Zaezy sales tracker app is a FREE mobile app that allows you to quickly calculate your inventory, sales, and profit for the day, last week, and last month.
-
 ## Getting Started
 
 This project is a starting point for a Flutter application.
