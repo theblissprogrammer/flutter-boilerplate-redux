@@ -14,7 +14,7 @@ void main() async {
 
   // Create Persistor
   final persistor = Persistor<AppState>(
-    storage: FlutterStorage(), // Or use other engines
+    storage: FlutterStorage(location: !kIsWeb ? FlutterSaveLocation.documentFile : FlutterSaveLocation.sharedPreferences), // Or use other engines
     serializer: JsonSerializer<AppState>(AppState.fromJson), // Or use other serializers
   );
 
