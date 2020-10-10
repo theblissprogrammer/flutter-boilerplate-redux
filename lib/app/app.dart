@@ -11,6 +11,7 @@ import 'package:app/redux/push/push_middleware.dart';
 import 'package:app/redux/user/user_actions.dart';
 import 'package:app/redux/user/user_middleware.dart';
 import 'package:app/utils/localization.dart';
+import 'package:app/utils/store_util.dart';
 import 'package:app/utils/theme.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -40,11 +41,12 @@ class _MyAppState extends State<MyApp> {
 
     store = Store<AppState>(
       appReducer,
-      initialState: AppState.init(),
+      initialState: StoreUtils.initialState,
       middleware: createStoreMiddleware(
         dataRepository,
         _navigatorKey,
       )
+        ..add(StoreUtils.persistor.createMiddleware())
         ..addAll(createAuthenticationMiddleware(
           userRepo,
           _navigatorKey,
@@ -54,6 +56,9 @@ class _MyAppState extends State<MyApp> {
           userRepo,
         )),
     );
+
+    // Save global access to store
+    StoreUtils.store = store;
 
     store.dispatch(VerifyAuthenticationState());
 
@@ -80,7 +85,7 @@ class _MyAppState extends State<MyApp> {
       supportedLocales: [
         const Locale("en", "US"),
       ],
-      title: "Zaezy",
+      title: "Nour Music",
       navigatorKey: _navigatorKey,
       theme: AppTheme.theme,
       home: EmailLoginScreen(),

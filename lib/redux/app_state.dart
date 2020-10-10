@@ -1,4 +1,6 @@
 import "package:built_collection/built_collection.dart";
+import 'package:app/redux/serializers.dart';
+import 'package:built_value/serializer.dart';
 import "package:built_value/built_value.dart";
 import 'package:app/models/product_model.dart';
 import 'package:app/models/user.dart';
@@ -16,6 +18,9 @@ part 'app_state.g.dart';
 /// - etc.
 ///
 abstract class AppState implements Built<AppState, AppStateBuilder> {
+  /// Serializer field makes the built_value serializable.
+  static Serializer<AppState> get serializer => _$appStateSerializer;
+
   @nullable
   User get user;
 
@@ -45,5 +50,15 @@ abstract class AppState implements Built<AppState, AppStateBuilder> {
     return AppState.init().rebuild((s) => s
       ..fcmToken = fcmToken
     );
+  }
+
+  // Decode Json to AppState
+  static AppState fromJson(dynamic json) {
+    return json == null ? AppState.init() : serializers.deserialize(json);
+  }
+
+  // Encode to json
+  dynamic toJson(){
+    return serializers.serialize(this);
   }
 }

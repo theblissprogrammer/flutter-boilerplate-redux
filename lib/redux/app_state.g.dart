@@ -6,6 +6,80 @@ part of 'app_state.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
+Serializer<AppState> _$appStateSerializer = new _$AppStateSerializer();
+
+class _$AppStateSerializer implements StructuredSerializer<AppState> {
+  @override
+  final Iterable<Type> types = const [AppState, _$AppState];
+  @override
+  final String wireName = 'AppState';
+
+  @override
+  Iterable<Object> serialize(Serializers serializers, AppState object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object>[
+      'products',
+      serializers.serialize(object.products,
+          specifiedType:
+              const FullType(BuiltList, const [const FullType(ProductModel)])),
+    ];
+    if (object.user != null) {
+      result
+        ..add('user')
+        ..add(serializers.serialize(object.user,
+            specifiedType: const FullType(User)));
+    }
+    if (object.productsCompleted != null) {
+      result
+        ..add('productsCompleted')
+        ..add(serializers.serialize(object.productsCompleted,
+            specifiedType: const FullType(bool)));
+    }
+    if (object.fcmToken != null) {
+      result
+        ..add('fcmToken')
+        ..add(serializers.serialize(object.fcmToken,
+            specifiedType: const FullType(String)));
+    }
+    return result;
+  }
+
+  @override
+  AppState deserialize(Serializers serializers, Iterable<Object> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new AppStateBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final dynamic value = iterator.current;
+      switch (key) {
+        case 'user':
+          result.user.replace(serializers.deserialize(value,
+              specifiedType: const FullType(User)) as User);
+          break;
+        case 'products':
+          result.products.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(ProductModel)]))
+              as BuiltList<dynamic>);
+          break;
+        case 'productsCompleted':
+          result.productsCompleted = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool;
+          break;
+        case 'fcmToken':
+          result.fcmToken = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
 class _$AppState extends AppState {
   @override
   final User user;

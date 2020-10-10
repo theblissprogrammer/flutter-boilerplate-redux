@@ -6,6 +6,76 @@ part of 'user.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
+Serializer<User> _$userSerializer = new _$UserSerializer();
+
+class _$UserSerializer implements StructuredSerializer<User> {
+  @override
+  final Iterable<Type> types = const [User, _$User];
+  @override
+  final String wireName = 'User';
+
+  @override
+  Iterable<Object> serialize(Serializers serializers, User object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object>[
+      'uid',
+      serializers.serialize(object.uid, specifiedType: const FullType(String)),
+    ];
+    if (object.email != null) {
+      result
+        ..add('email')
+        ..add(serializers.serialize(object.email,
+            specifiedType: const FullType(String)));
+    }
+    if (object.name != null) {
+      result
+        ..add('name')
+        ..add(serializers.serialize(object.name,
+            specifiedType: const FullType(String)));
+    }
+    if (object.lastSeenAt != null) {
+      result
+        ..add('lastSeenAt')
+        ..add(serializers.serialize(object.lastSeenAt,
+            specifiedType: const FullType(DateTime)));
+    }
+    return result;
+  }
+
+  @override
+  User deserialize(Serializers serializers, Iterable<Object> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new UserBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final dynamic value = iterator.current;
+      switch (key) {
+        case 'uid':
+          result.uid = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'email':
+          result.email = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'name':
+          result.name = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'lastSeenAt':
+          result.lastSeenAt = serializers.deserialize(value,
+              specifiedType: const FullType(DateTime)) as DateTime;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
 class _$User extends User {
   @override
   final String uid;

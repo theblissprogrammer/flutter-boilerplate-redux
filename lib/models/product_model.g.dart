@@ -6,6 +6,157 @@ part of 'product_model.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
+Serializer<ProductModel> _$productModelSerializer =
+    new _$ProductModelSerializer();
+
+class _$ProductModelSerializer implements StructuredSerializer<ProductModel> {
+  @override
+  final Iterable<Type> types = const [ProductModel, _$ProductModel];
+  @override
+  final String wireName = 'ProductModel';
+
+  @override
+  Iterable<Object> serialize(Serializers serializers, ProductModel object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object>[
+      'asin',
+      serializers.serialize(object.asin, specifiedType: const FullType(String)),
+    ];
+    if (object.title != null) {
+      result
+        ..add('title')
+        ..add(serializers.serialize(object.title,
+            specifiedType: const FullType(String)));
+    }
+    if (object.html != null) {
+      result
+        ..add('html')
+        ..add(serializers.serialize(object.html,
+            specifiedType: const FullType(String)));
+    }
+    if (object.image != null) {
+      result
+        ..add('image')
+        ..add(serializers.serialize(object.image,
+            specifiedType: const FullType(String)));
+    }
+    if (object.star != null) {
+      result
+        ..add('star')
+        ..add(serializers.serialize(object.star,
+            specifiedType: const FullType(String)));
+    }
+    if (object.ratings != null) {
+      result
+        ..add('ratings')
+        ..add(serializers.serialize(object.ratings,
+            specifiedType: const FullType(int)));
+    }
+    if (object.hasSellers != null) {
+      result
+        ..add('hasSellers')
+        ..add(serializers.serialize(object.hasSellers,
+            specifiedType: const FullType(bool)));
+    }
+    if (object.hasBuyBox != null) {
+      result
+        ..add('hasBuyBox')
+        ..add(serializers.serialize(object.hasBuyBox,
+            specifiedType: const FullType(bool)));
+    }
+    if (object.bsr != null) {
+      result
+        ..add('bsr')
+        ..add(serializers.serialize(object.bsr,
+            specifiedType: const FullType(int)));
+    }
+    if (object.category != null) {
+      result
+        ..add('category')
+        ..add(serializers.serialize(object.category,
+            specifiedType: const FullType(String)));
+    }
+    if (object.domain != null) {
+      result
+        ..add('domain')
+        ..add(serializers.serialize(object.domain,
+            specifiedType: const FullType(String)));
+    }
+    if (object.updatedAt != null) {
+      result
+        ..add('updatedAt')
+        ..add(serializers.serialize(object.updatedAt,
+            specifiedType: const FullType(DateTime)));
+    }
+    return result;
+  }
+
+  @override
+  ProductModel deserialize(Serializers serializers, Iterable<Object> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new ProductModelBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final dynamic value = iterator.current;
+      switch (key) {
+        case 'asin':
+          result.asin = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'title':
+          result.title = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'html':
+          result.html = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'image':
+          result.image = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'star':
+          result.star = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'ratings':
+          result.ratings = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
+        case 'hasSellers':
+          result.hasSellers = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool;
+          break;
+        case 'hasBuyBox':
+          result.hasBuyBox = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool;
+          break;
+        case 'bsr':
+          result.bsr = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
+        case 'category':
+          result.category = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'domain':
+          result.domain = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'updatedAt':
+          result.updatedAt = serializers.deserialize(value,
+              specifiedType: const FullType(DateTime)) as DateTime;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
 class _$ProductModel extends ProductModel {
   @override
   final String asin;
@@ -31,10 +182,6 @@ class _$ProductModel extends ProductModel {
   final String domain;
   @override
   final DateTime updatedAt;
-  @override
-  final Map<String, double> avgSalesRank;
-  @override
-  final Map<String, double> avgPrice;
 
   factory _$ProductModel([void Function(ProductModelBuilder) updates]) =>
       (new ProductModelBuilder()..update(updates)).build();
@@ -51,9 +198,7 @@ class _$ProductModel extends ProductModel {
       this.bsr,
       this.category,
       this.domain,
-      this.updatedAt,
-      this.avgSalesRank,
-      this.avgPrice})
+      this.updatedAt})
       : super._() {
     if (asin == null) {
       throw new BuiltValueNullFieldError('ProductModel', 'asin');
@@ -82,9 +227,7 @@ class _$ProductModel extends ProductModel {
         bsr == other.bsr &&
         category == other.category &&
         domain == other.domain &&
-        updatedAt == other.updatedAt &&
-        avgSalesRank == other.avgSalesRank &&
-        avgPrice == other.avgPrice;
+        updatedAt == other.updatedAt;
   }
 
   @override
@@ -99,22 +242,18 @@ class _$ProductModel extends ProductModel {
                                 $jc(
                                     $jc(
                                         $jc(
-                                            $jc(
-                                                $jc(
-                                                    $jc($jc(0, asin.hashCode),
-                                                        title.hashCode),
-                                                    html.hashCode),
-                                                image.hashCode),
-                                            star.hashCode),
-                                        ratings.hashCode),
-                                    hasSellers.hashCode),
-                                hasBuyBox.hashCode),
-                            bsr.hashCode),
-                        category.hashCode),
-                    domain.hashCode),
-                updatedAt.hashCode),
-            avgSalesRank.hashCode),
-        avgPrice.hashCode));
+                                            $jc($jc(0, asin.hashCode),
+                                                title.hashCode),
+                                            html.hashCode),
+                                        image.hashCode),
+                                    star.hashCode),
+                                ratings.hashCode),
+                            hasSellers.hashCode),
+                        hasBuyBox.hashCode),
+                    bsr.hashCode),
+                category.hashCode),
+            domain.hashCode),
+        updatedAt.hashCode));
   }
 }
 
@@ -170,15 +309,6 @@ class ProductModelBuilder
   DateTime get updatedAt => _$this._updatedAt;
   set updatedAt(DateTime updatedAt) => _$this._updatedAt = updatedAt;
 
-  Map<String, double> _avgSalesRank;
-  Map<String, double> get avgSalesRank => _$this._avgSalesRank;
-  set avgSalesRank(Map<String, double> avgSalesRank) =>
-      _$this._avgSalesRank = avgSalesRank;
-
-  Map<String, double> _avgPrice;
-  Map<String, double> get avgPrice => _$this._avgPrice;
-  set avgPrice(Map<String, double> avgPrice) => _$this._avgPrice = avgPrice;
-
   ProductModelBuilder();
 
   ProductModelBuilder get _$this {
@@ -195,8 +325,6 @@ class ProductModelBuilder
       _category = _$v.category;
       _domain = _$v.domain;
       _updatedAt = _$v.updatedAt;
-      _avgSalesRank = _$v.avgSalesRank;
-      _avgPrice = _$v.avgPrice;
       _$v = null;
     }
     return this;
@@ -230,9 +358,7 @@ class ProductModelBuilder
             bsr: bsr,
             category: category,
             domain: domain,
-            updatedAt: updatedAt,
-            avgSalesRank: avgSalesRank,
-            avgPrice: avgPrice);
+            updatedAt: updatedAt);
     replace(_$result);
     return _$result;
   }
