@@ -2,6 +2,8 @@ import "package:built_collection/built_collection.dart";
 import "package:built_value/built_value.dart";
 import 'package:app/models/product_model.dart';
 import 'package:app/models/user.dart';
+import 'package:app/redux/serializers.dart';
+import 'package:built_value/serializer.dart';
 
 // ignore: prefer_double_quotes
 part 'app_state.g.dart';
@@ -48,5 +50,15 @@ abstract class AppState implements Built<AppState, AppStateBuilder> {
     return AppState.init().rebuild((s) => s
       ..fcmToken = fcmToken
     );
+  }
+
+  // Decode Json to AppState
+  static AppState fromJson(dynamic json) {
+    return json == null ? AppState.init() : serializers.deserialize(json);
+  }
+
+  // Encode to json
+  dynamic toJson(){
+    return serializers.serialize(this);
   }
 }

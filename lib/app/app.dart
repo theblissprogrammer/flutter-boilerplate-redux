@@ -11,6 +11,7 @@ import 'package:app/redux/push/push_middleware.dart';
 import 'package:app/redux/user/user_actions.dart';
 import 'package:app/redux/user/user_middleware.dart';
 import 'package:app/utils/localization.dart';
+import 'package:app/utils/store_util.dart';
 import 'package:app/utils/theme.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -40,23 +41,36 @@ class _MyAppState extends State<MyApp> {
 
     store = Store<AppState>(
       appReducer,
-      initialState: AppState.init(),
-      middleware: createStoreMiddleware(
-        dataRepository,
-        _navigatorKey,
-      )
-        ..addAll(createAuthenticationMiddleware(
-          userRepo,
-          _navigatorKey,
-        ))
-        ..addAll(createUserMiddleware(userRepo, _navigatorKey,))
-        ..addAll(createPushMiddleware(
-          userRepo,
-        )),
+      initialState: StoreUtils.initialState ?? AppState.init(),
+      middleware: _createMiddlware(),
     );
+
+    // Save global access to store
+    StoreUtils.store = store;
 
     store.dispatch(VerifyAuthenticationState());
 
+  }
+
+  List<Middleware<AppState>> _createMiddlware() {
+    var middleware = createStoreMiddleware(
+      dataRepository,
+      _navigatorKey,
+    )
+      ..addAll(createAuthenticationMiddleware(
+        userRepo,
+        _navigatorKey,
+      ))
+      ..addAll(createUserMiddleware(userRepo, _navigatorKey,))
+      ..addAll(createPushMiddleware(
+        userRepo,
+      ));
+
+    if (StoreUtils.persistor != null) {
+      middleware.add(StoreUtils.persistor.createMiddleware());
+    }
+
+    return middleware;
   }
 
   // Used to propagate this users current locale to our backend (which then can send localized notifications).

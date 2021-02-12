@@ -1,12 +1,13 @@
 import 'package:app/app/app.dart';
 import 'package:app/utils/logger.dart';
+import 'package:app/utils/store_util.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:redux_persist/redux_persist.dart';
 import 'package:redux_persist_flutter/redux_persist_flutter.dart';
 
-import 'redux/app_state.dart';
+import 'package:app/redux/app_state.dart';
 
 void main() async {
   configureLogger();

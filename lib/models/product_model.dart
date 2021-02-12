@@ -1,9 +1,13 @@
 import "package:built_value/built_value.dart";
+import 'package:built_value/serializer.dart';
 
 // ignore: prefer_double_quotes
 part 'product_model.g.dart';
 
 abstract class ProductModel implements Built<ProductModel, ProductModelBuilder> {
+  /// Serializer field makes the built_value serializable.
+  static Serializer<ProductModel> get serializer => _$productModelSerializer;
+
   String get asin;
 
   @nullable
