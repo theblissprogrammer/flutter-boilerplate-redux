@@ -1,4 +1,4 @@
-package com.theblissprogrammer.amzntracker.app
+package co.whipx.app
 
 import io.flutter.embedding.android.FlutterActivity
 
