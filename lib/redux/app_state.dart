@@ -16,6 +16,9 @@ part 'app_state.g.dart';
 /// - etc.
 ///
 abstract class AppState implements Built<AppState, AppStateBuilder> {
+  /// Serializer field makes the built_value serializable.
+  static Serializer<AppState> get serializer => _$appStateSerializer;
+
   @nullable
   User get user;
 
